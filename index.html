@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#183c36">
+<title>Inscription — Jury de gymnastique</title>
+<style>
+:root{--ink:#183c36;--green:#276454;--mint:#eaf4ee;--bg:#f3f6f2;--line:#d6e1da;--muted:#60716a;--gold:#d9aa43;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#1b2b26;font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}header{background:var(--ink);color:#fff;padding:30px 20px 36px}.head{max-width:900px;margin:auto}.logo{display:block;width:190px;max-width:65vw;height:auto;margin:0 0 22px;border-radius:4px}.tag{font-size:.76rem;letter-spacing:.15em;text-transform:uppercase;font-weight:750;color:#dcedaa;margin:0 0 10px}h1{font-size:clamp(1.8rem,6vw,2.7rem);line-height:1.1;letter-spacing:-.035em;margin:0}header p:last-child{color:#d8e6df;margin:12px 0 0}.wrap{max-width:900px;margin:-18px auto 44px;padding:0 16px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(20px,5vw,34px);box-shadow:0 12px 38px #183c3610;margin-bottom:16px}.step{font-size:.78rem;font-weight:800;color:var(--green);letter-spacing:.08em;text-transform:uppercase;margin:0 0 18px}h2{font-size:1.25rem;margin:0 0 16px;color:var(--ink)}.identity{display:grid;grid-template-columns:1fr 1fr;gap:16px}label{font-weight:700;display:block;margin-bottom:7px}.field input{width:100%;padding:13px 14px;border:1px solid #c9d6ce;border-radius:10px;font:inherit}input:focus,select:focus{outline:3px solid #dcedaa;border-color:var(--green)}.hint{color:var(--muted);font-size:.9rem;margin:-8px 0 18px}.apparatus{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.choice{border:1px solid var(--line);border-radius:11px;padding:13px 14px;display:flex;align-items:center;gap:11px;cursor:pointer;background:#fff}.choice:has(input:checked){border-color:var(--green);background:var(--mint)}.choice input{width:19px;height:19px;accent-color:var(--green)}.apparatus-form{border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:16px;background:#fbfcfb}.apparatus-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.apparatus-head h3{margin:0;color:var(--ink);font-size:1.12rem}.role{display:flex;align-items:center;gap:8px}.role label{margin:0}.role select{font:inherit;padding:9px 30px 9px 10px;border:1px solid #c9d6ce;border-radius:9px;background:#fff}.movement{padding:16px 0;border-top:1px solid #e4ebe6;margin-top:14px}.movement h4{margin:0 0 12px}.counts{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px}.count label{text-align:center;font-size:.86rem}.count input{width:100%;text-align:center;padding:10px 4px;border:1px solid #c9d6ce;border-radius:8px;font:inherit}.count input::-webkit-inner-spin-button{opacity:1}.deduction{margin-top:12px}.deduction[hidden]{display:none}.deduction input{width:100%;max-width:220px;padding:10px 12px;border:1px solid #c9d6ce;border-radius:8px;font:inherit}.empty{padding:18px;border-radius:10px;background:#f4f7f4;color:var(--muted);text-align:center}.actions{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:18px}button{border:0;border-radius:10px;padding:14px 20px;background:var(--ink);color:#fff;font:inherit;font-weight:700;cursor:pointer}button:hover{background:var(--green)}button:disabled{opacity:.65;cursor:wait}.privacy{font-size:.85rem;color:var(--muted);margin:0}#message{font-weight:650;margin:16px 0 0;min-height:1.5em;color:var(--ink)}.qrbox{text-align:center}.qrbox p{color:var(--muted);margin:0 0 12px}.qrbox #qrcode{display:flex;justify-content:center;min-height:0}.qrbox img,.qrbox canvas{padding:10px;background:#fff;border:1px solid var(--line);border-radius:10px}.qr-note{font-size:.82rem!important;margin-top:10px!important}
+@media(max-width:580px){.identity{grid-template-columns:1fr}.apparatus{grid-template-columns:1fr}.counts{gap:6px}.count label{font-size:.78rem}.count input{font-size:.95rem;padding:9px 2px}.apparatus-form{padding:15px}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<header><div class="head"><img class="logo" src="ffgym.png" alt="Fédération Française de Gymnastique"><p class="tag">Inscription</p><h1>Formation de juge</h1><p>Choisissez vos agrès et renseignez vos éléments pour chaque mouvement.</p></div></header>
+<main class="wrap">
+<form id="form">
+<section class="card"><p class="step">Étape 1 · Candidat</p><div class="identity">
+<div class="field"><label for="nom">Nom *</label><input id="nom" name="nom" autocomplete="family-name" maxlength="100" required></div>
+<div class="field"><label for="prenom">Prénom *</label><input id="prenom" name="prenom" autocomplete="given-name" maxlength="100" required></div>
+</div></section>
+<section class="card"><p class="step">Étape 2 · Agrès et rôle</p><h2>Sélectionnez un ou plusieurs agrès</h2><p class="hint">Pour chaque agrès choisi, indiquez si vous êtes Jury D ou Jury E.</p>
+<div class="apparatus" id="apparatus-list"></div><div id="forms"></div>
+</section>
+<section class="card"><p class="step">Étape 3 · Envoi</p><p class="privacy">Les informations saisies seront transmises à l’organisateur et enregistrées dans le Google Sheet associé.</p><div class="actions"><button id="submit" type="submit">Envoyer mon inscription</button></div><p id="message" role="status" aria-live="polite"></p></section>
+</form>
+<section class="card qrbox"><h2>Accès rapide au formulaire</h2><p>Scannez ce QR code avec votre téléphone.</p><div id="qrcode"></div><p class="qr-note" id="qr-note"></p></section>
+</main>
+<script>
+// Remplacez cette valeur par l'URL /exec de votre Google Apps Script déployé.
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKovXj-9lAgsohFLz9JR1zhMrdmGFnVlErk7kvQzgbrR_lo0QFh3B7XaWHNIDe7eIeRQ/exec";
+const apparatus = ["Sol", "Arçons", "Anneaux", "Saut", "Barres parallèles", "Barre fixe"];
+const letters = ["A", "B", "C", "D", "E", "F et +"];
+const chosen = new Set();
+const esc = s => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+const key = s => apparatus.indexOf(s);
+function renderChoices(){
+ document.querySelector('#apparatus-list').innerHTML = apparatus.map((a,i)=>`<label class="choice"><input type="checkbox" value="${i}" aria-label="Sélectionner ${a}"><span>${a}</span></label>`).join('');
+ document.querySelectorAll('#apparatus-list input').forEach(box=>box.addEventListener('change',()=>{
+  const i=Number(box.value); if(box.checked) chosen.add(i); else chosen.delete(i); renderForms();
+ }));
+}
+function renderForms(){
+ document.querySelector('#forms').innerHTML = [...chosen].sort((a,b)=>a-b).map(i=>{
+  const name=apparatus[i];
+  return `<section class="apparatus-form" aria-label="Formulaire ${esc(name)}"><div class="apparatus-head"><h3>${esc(name)}</h3><div class="role"><label for="role-${i}">Rôle</label><select id="role-${i}" name="role-${i}" required onchange="updateDeductionVisibility(${i})"><option value="">Choisir</option><option>Jury D</option><option>Jury E</option></select></div></div>`+
+   [1,2,3,4].map(m=>`<div class="movement"><h4>Mouvement ${m}</h4><div class="counts">${letters.map((l,j)=>`<div class="count"><label for="n-${i}-${m}-${j}">${l}</label><input id="n-${i}-${m}-${j}" name="n-${i}-${m}-${j}" type="number" min="0" step="1" value="0" inputmode="numeric" aria-label="Nombre d’éléments ${l} au mouvement ${m} — ${esc(name)}"></div>`).join('')}</div><div class="deduction" id="deduction-${i}-${m}" hidden><label for="ded-${i}-${m}">Déductions</label><input id="ded-${i}-${m}" name="ded-${i}-${m}" type="number" min="0" step="0.1" value="0" inputmode="decimal"></div></div>`).join('')+`</section>`;
+ }).join('') || '<div class="empty">Sélectionnez au moins un agrès pour afficher les formulaires.</div>';
+}
+function updateDeductionVisibility(i){
+ const role=document.querySelector(`#role-${i}`)?.value;
+ document.querySelectorAll(`[id^="deduction-${i}-"]`).forEach(el=>{el.hidden=role!=="Jury E";});
+}
+function drawQr(){
+ const box=document.querySelector('#qrcode'), note=document.querySelector('#qr-note');
+ if(location.protocol==='http:'||location.protocol==='https:'){
+  if(window.QRCode){new QRCode(box,{text:location.href,width:190,height:190});note.textContent='Ce QR code ouvre cette page. Il sera prêt à être diffusé après publication de la page.';}
+  else note.textContent='La bibliothèque du QR code nécessite une connexion internet.';
+ } else note.textContent='Le QR code apparaîtra ici après la publication de cette page sur une adresse web publique.';
+}
+document.querySelector('#form').addEventListener('submit', async ev=>{
+ ev.preventDefault(); const msg=document.querySelector('#message'), btn=document.querySelector('#submit');
+ if(!chosen.size){msg.textContent='Sélectionnez au moins un agrès.';return;}
+ if(SCRIPT_URL==='https://script.google.com/macros/s/AKfycbxKovXj-9lAgsohFLz9JR1zhMrdmGFnVlErk7kvQzgbrR_lo0QFh3B7XaWHNIDe7eIeRQ/exec'){msg.textContent='Le formulaire doit d’abord être relié au Google Sheet. Consultez le fichier Lisez-moi.';return;}
+ const data=new FormData(ev.currentTarget);
+ const registrations=[...chosen].sort((a,b)=>a-b).map(i=>({
+  agre:apparatus[i], role:data.get(`role-${i}`),
+  mouvements:[1,2,3,4].map(m=>Object.fromEntries([...letters.map((l,j)=>[l,Number(data.get(`n-${i}-${m}-${j}`)||0)]),['Déductions',Number(data.get(`ded-${i}-${m}`)||0)]]))
+ }));
+ const payload={nom:String(data.get('nom')).trim(),prenom:String(data.get('prenom')).trim(),inscriptions:registrations};
+ btn.disabled=true;msg.textContent='Envoi en cours…';
+ try{
+  await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+  ev.currentTarget.reset();chosen.clear();renderForms();msg.textContent='Merci, votre inscription a été envoyée.';
+ }catch(err){msg.textContent='L’envoi a échoué. Vérifiez votre connexion puis réessayez.';}
+ finally{btn.disabled=false;}
+});
+renderChoices();renderForms();drawQr();
+</script>
+</body></html>
+
+
+
+
+
+
+
