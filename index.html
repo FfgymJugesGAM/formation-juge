@@ -60,7 +60,7 @@ function drawQr(){
 document.querySelector('#form').addEventListener('submit', async ev=>{
  ev.preventDefault(); const msg=document.querySelector('#message'), btn=document.querySelector('#submit');
  if(!chosen.size){msg.textContent='Sélectionnez au moins un agrès.';return;}
- if(SCRIPT_URL==='https://script.google.com/macros/s/AKfycbxKovXj-9lAgsohFLz9JR1zhMrdmGFnVlErk7kvQzgbrR_lo0QFh3B7XaWHNIDe7eIeRQ/exec'){msg.textContent='Le formulaire doit d’abord être relié au Google Sheet. Consultez le fichier Lisez-moi.';return;}
+ if(SCRIPT_URL==='COLLER_ICI_URL_WEB_APP'){msg.textContent='Le formulaire doit d’abord être relié au Google Sheet. Consultez le fichier Lisez-moi.';return;}
  const data=new FormData(ev.currentTarget);
  const registrations=[...chosen].sort((a,b)=>a-b).map(i=>({
   agre:apparatus[i], role:data.get(`role-${i}`),
