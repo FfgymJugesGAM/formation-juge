@@ -71,7 +71,7 @@ document.querySelector('#form').addEventListener('submit', async ev=>{
  try{
   await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
   ev.currentTarget.reset();chosen.clear();renderForms();msg.textContent='Merci, votre inscription a été envoyée.';
- }catch(err){msg.textContent='L’envoi a échoué. Vérifiez votre connexion puis réessayez.';}
+ }catch(err){console.error('Échec de connexion à Google Apps Script:',err);msg.textContent='Impossible de joindre Google Apps Script. Vérifiez le déploiement du lien /exec et votre connexion.';}
  finally{btn.disabled=false;}
 });
 renderChoices();renderForms();drawQr();
